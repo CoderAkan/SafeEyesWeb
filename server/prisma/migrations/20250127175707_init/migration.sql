@@ -1,0 +1,6 @@
+-- AlterTable
+ALTER TABLE "User" ALTER COLUMN "full_name" DROP NOT NULL,
+ALTER COLUMN "emergency_contact" DROP NOT NULL,
+ALTER COLUMN "role" DROP NOT NULL,
+ALTER COLUMN "department" DROP NOT NULL,
+ALTER COLUMN "access_permissions" SET DEFAULT ARRAY[]::TEXT[];
