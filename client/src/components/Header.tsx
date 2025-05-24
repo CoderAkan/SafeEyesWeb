@@ -6,7 +6,7 @@ import {FaSignOutAlt} from 'react-icons/fa'
 const Header: FC = () => {
     const isAuth = false;
     return (
-        <header className='flex items-center justify-between p-4 shadow-sm bg-white backdrop-blue-sm'> 
+        <header className='flex items-center min-w-screen fixed justify-between p-4 shadow-sm bg-white backdrop-blue-sm'> 
             <Link to='/'>
                 <img src={logo} alt="Logo" width={50} height={50}/>
             </Link>
