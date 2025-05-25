@@ -1,14 +1,78 @@
-import {FC, useState} from 'react'
+import { FC, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { DevTool } from '@hookform/devtools'
+import { LoginFormData } from '../types';
 
 const AuthPage: FC = () => {
   const [isLogin, setIsLogin] = useState<boolean>(false);
 
+  const form = useForm<LoginFormData>();
+  const { register, control, handleSubmit, formState } = form;
+  const { errors } = formState;
+
+  const onSubmit = (data: LoginFormData) => {
+    console.log("Form is submitted", data)
+  }
+
+
   return (
     <div className='mt-40 flex flex-col items-center justify-center bg-slate-900 text-white'>
-      <h1 className='text-center text-xl mb-10'>{isLogin ? "Войти" : "Регистрация"}</h1>
-      <form className='flex w-1/3 flex-col mx-auto gap-5'>
-        <input type="text" className='' placeholder=''/>
+      <h1 className='text-center text-3xl mb-10'>{"Login"}</h1>
+      <form className='flex w-1/3 flex-col mx-auto' onSubmit={handleSubmit(onSubmit)} noValidate>
+        <div className='flex flex-col gap-y-2'>
+          <label htmlFor="email">Email</label>
+          <input 
+            type="email" 
+            id='email' 
+            className='bg-white rounded-md text-slate-900 px-2 py-1'
+            {...register("email", {
+              required: {
+                value: true,
+                message: "Email is required"},
+              pattern: {
+                value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                message: "Invalid email format"
+              }
+            })}
+          />
+        </div>
+        <p className='text-red-500 mt-2 mb-5'>{errors.email?.message}</p>
+
+        <div className='flex flex-col gap-y-2'>
+          <label htmlFor="name">Name</label>
+          <input 
+            type="text" 
+            id='name' 
+            className='bg-white rounded-md text-slate-900 px-2 py-1'
+            {...register("name", {
+              required: {
+                value: true,
+                message: "Name is required"
+              }
+            })}  
+          />
+        </div>
+        <p className='text-red-500 mt-2 mb-5'>{errors.name?.message}</p>
+
+        <div className='flex flex-col gap-y-2'>
+          <label htmlFor="password">Password</label>
+          <input 
+            type="password" 
+            id='password' 
+            className='bg-white rounded-md text-slate-900 px-2 py-1'
+            {...register("password", {
+              required: {
+                value: true,
+                message: "Password is required"
+              }
+            })}  
+          />
+        </div>
+        <p className='text-red-500 mt-2 mb-5'>{errors.password?.message}</p>
+
+        <button className='mt-5 border-white border-1 px-2 py-2 hover:bg-white hover:text-slate-900'>Submit</button>
       </form>
+      <DevTool control={control} />
     </div>
   )
 }
