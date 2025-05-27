@@ -36,7 +36,7 @@ let UserService = class UserService {
                 emergency_contact: createUserDto.emergency_contact,
                 role: createUserDto.role,
                 department: createUserDto.department,
-                access_permissions: createUserDto.access_permissions
+                access_permissions: createUserDto.access_permissions,
             }
         });
         const token = this.jwtService.sign({ email: createUserDto.email });
@@ -50,7 +50,23 @@ let UserService = class UserService {
                 department: true,
                 emergency_contact: true,
                 role: true,
-                access_permissions: true
+                access_permissions: true,
+                password: true,
+                id: true
+            }
+        });
+    }
+    async findById(id) {
+        return await this.prisma.user.findUnique({
+            where: { id: id },
+            select: {
+                id: true,
+                full_name: true,
+                department: true,
+                emergency_contact: true,
+                role: true,
+                access_permissions: true,
+                password: true
             }
         });
     }
@@ -70,6 +86,9 @@ let UserService = class UserService {
         }
         if (updateUserDto.role) {
             data.role = updateUserDto.role;
+        }
+        if (updateUserDto.refresh_token) {
+            data.refresh_token = updateUserDto.refresh_token;
         }
         return await this.prisma.user.update({
             where: {

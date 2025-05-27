@@ -1,34 +1,62 @@
 import { PrismaService } from 'prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
-import { IUser } from 'src/types/types';
+import { UserService } from 'src/user/user.service';
+import { ConfigService } from '@nestjs/config';
+import { CreateUserDto } from 'src/user/dto/create-user.dto';
 export declare class AuthService {
     private readonly prisma;
     private readonly jwtService;
-    constructor(prisma: PrismaService, jwtService: JwtService);
+    private readonly userService;
+    private readonly configService;
+    constructor(prisma: PrismaService, jwtService: JwtService, userService: UserService, configService: ConfigService);
+    signUp(createUserDto: CreateUserDto): Promise<{
+        access_token: string;
+        refresh_token: string;
+    }>;
+    login(email: string, password: string): Promise<{
+        access_token: string;
+        refresh_token: string;
+    }>;
+    findOne(email: string): Promise<{
+        id: number;
+        full_name: string;
+        emergency_contact: string;
+        role: string;
+        department: string;
+        access_permissions: string[];
+    } | null>;
+    hashData(data: string): Promise<string>;
+    updateRefreshToken(userId: string, refresh_token: string): Promise<void>;
     validateUser(email: string, password: string): Promise<{
+        id: number;
         email: string;
         password: string;
         full_name: string;
         emergency_contact: string;
         role: string;
         department: string;
-        access_permissions: string[];
-        id: number;
+        refresh_token: string;
         boss_id: string | null;
+        access_permissions: string[];
         createdAt: Date;
         updatedAt: Date;
     }>;
-    login(user: IUser): Promise<{
-        id: string;
-        email: string;
-        token: string;
+    getTokens(userId: string, username: string): Promise<{
+        access_token: string;
+        refresh_token: string;
     }>;
-    findOne(email: string): Promise<{
+    logout(userId: string): Promise<{
+        id: number;
+        email: string;
+        password: string;
         full_name: string;
         emergency_contact: string;
         role: string;
         department: string;
+        refresh_token: string;
+        boss_id: string | null;
         access_permissions: string[];
-        id: number;
-    } | null>;
+        createdAt: Date;
+        updatedAt: Date;
+    }>;
 }

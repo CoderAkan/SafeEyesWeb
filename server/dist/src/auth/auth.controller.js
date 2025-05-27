@@ -17,18 +17,41 @@ const common_1 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
 const local_auth_guard_1 = require("./guards/local-auth.guard");
 const jwt_auth_guard_1 = require("./guards/jwt-auth.guard");
+const create_user_dto_1 = require("../user/dto/create-user.dto");
 let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
     }
+    async signUp(createUserDto) {
+        const data = {
+            email: createUserDto.email,
+            password: createUserDto.password,
+            full_name: createUserDto.full_name || "",
+            emergency_contact: createUserDto.emergency_contact || "",
+            role: createUserDto.role || "USER",
+            department: createUserDto.department || "GENERAL",
+            access_permissions: createUserDto.access_permissions || [],
+        };
+        console.log(data);
+        return this.authService.signUp(data);
+    }
     async login(req) {
-        return this.authService.login(req.user);
+        const tokens = await this.authService.getTokens(req.user.id.toString(), req.user.full_name);
+        await this.authService.updateRefreshToken(req.user.id.toString(), tokens.refresh_token);
+        return tokens;
     }
     getProfile(req) {
         return this.authService.findOne(req.user.email);
     }
 };
 exports.AuthController = AuthController;
+__decorate([
+    (0, common_1.Post)('signup'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "signUp", null);
 __decorate([
     (0, common_1.Post)('login'),
     (0, common_1.UseGuards)(local_auth_guard_1.LocalAuthGuard),

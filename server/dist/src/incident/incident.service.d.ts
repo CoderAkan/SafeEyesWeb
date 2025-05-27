@@ -23,6 +23,7 @@ export declare class IncidentService {
             role: string;
             department: string;
             access_permissions: string[];
+            refresh_token: string;
             id: number;
             boss_id: string | null;
             createdAt: Date;
@@ -55,6 +56,7 @@ export declare class IncidentService {
             role: string;
             department: string;
             access_permissions: string[];
+            refresh_token: string;
             id: number;
             boss_id: string | null;
             createdAt: Date;

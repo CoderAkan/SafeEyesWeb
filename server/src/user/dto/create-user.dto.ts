@@ -13,18 +13,20 @@ export class CreateUserDto {
 
     @IsString()
     @IsOptional()
-    emergency_contact: string;
+    emergency_contact?: string;
 
     @IsString()    
     @IsOptional()
-    role: string;
+    role?: string;
 
     @IsString()
     @IsOptional()
-    department: string;
+    department?: string;
 
     @IsArray()
     @IsString({ each: true })
     @IsOptional()
-    access_permissions: string[];
+    access_permissions?: string[];
+
+    refresh_token?: string;
 }

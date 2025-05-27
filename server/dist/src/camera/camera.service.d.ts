@@ -22,6 +22,7 @@ export declare class CameraService {
             role: string;
             department: string;
             access_permissions: string[];
+            refresh_token: string;
             id: number;
             boss_id: string | null;
             createdAt: Date;

@@ -8,21 +8,33 @@ export declare class UserService {
     constructor(jwtService: JwtService, prisma: PrismaService);
     create(createUserDto: CreateUserDto): Promise<{
         user: {
+            id: number;
             email: string;
             password: string;
             full_name: string;
             emergency_contact: string;
             role: string;
             department: string;
-            access_permissions: string[];
-            id: number;
+            refresh_token: string;
             boss_id: string | null;
+            access_permissions: string[];
             createdAt: Date;
             updatedAt: Date;
         };
         token: string;
     }>;
     findOne(email: string): Promise<{
+        id: number;
+        password: string;
+        full_name: string;
+        emergency_contact: string;
+        role: string;
+        department: string;
+        access_permissions: string[];
+    } | null>;
+    findById(id: number): Promise<{
+        id: number;
+        password: string;
         full_name: string;
         emergency_contact: string;
         role: string;
@@ -30,15 +42,16 @@ export declare class UserService {
         access_permissions: string[];
     } | null>;
     update(updateUserDto: UpdateUserDto, userId: number): Promise<{
+        id: number;
         email: string;
         password: string;
         full_name: string;
         emergency_contact: string;
         role: string;
         department: string;
-        access_permissions: string[];
-        id: number;
+        refresh_token: string;
         boss_id: string | null;
+        access_permissions: string[];
         createdAt: Date;
         updatedAt: Date;
     }>;

@@ -15,6 +15,7 @@ model User {
   emergency_contact     String             @default("")
   role                  String             @default("USER")
   department            String             @default("GENERAL")
+  refresh_token         String             @default("")
   boss_id               String?
   access_permissions    String[]           @default([])
   createdAt             DateTime           @default(now())
