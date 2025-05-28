@@ -26,7 +26,7 @@ let AuthController = class AuthController {
         const data = {
             email: createUserDto.email,
             password: createUserDto.password,
-            full_name: createUserDto.full_name || "",
+            full_name: createUserDto.full_name,
             emergency_contact: createUserDto.emergency_contact || "",
             role: createUserDto.role || "USER",
             department: createUserDto.department || "GENERAL",
