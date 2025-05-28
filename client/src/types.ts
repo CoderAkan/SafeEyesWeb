@@ -14,3 +14,14 @@ export type RootState = {
         refresh_token: string;
     }
 }
+
+export type RegistrationFormData = {
+    email: string,
+    password: string,
+    full_name: string,
+    emergency_contact?: string,
+    role?: string,
+    department?: string,
+    access_permissions?: string[],
+    refresh_token?: string
+}

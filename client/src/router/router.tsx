@@ -7,6 +7,9 @@ import Notifications from "../pages/Notifications";
 import Cameras from "../pages/Cameras";
 import Personnel from "../pages/Personnel";
 import AuthPage from "../pages/AuthPage";
+import AboutUs from "../pages/AboutUs";
+import Partners from "../pages/Partners";
+import Accomplishments from "../pages/Accomplishments";
 
 export const router = createBrowserRouter([
     {
@@ -37,7 +40,19 @@ export const router = createBrowserRouter([
             {
                 path: 'auth',
                 element: <AuthPage />
-            }
+            },
+            {
+                path: 'aboutus',
+                element: <AboutUs />
+            },
+            {
+                path: 'partners',
+                element: <Partners />
+            },
+            {
+                path: 'accomplishments',
+                element: <Accomplishments />
+            },
         ]
     }
 ])
