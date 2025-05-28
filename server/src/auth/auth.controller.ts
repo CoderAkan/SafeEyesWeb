@@ -14,12 +14,11 @@ export class AuthController {
       email: createUserDto.email,
       password: createUserDto.password,
       full_name: createUserDto.full_name,
-      emergency_contact: createUserDto.emergency_contact || "",
-      role: createUserDto.role || "USER",
-      department: createUserDto.department || "GENERAL",
-      access_permissions: createUserDto.access_permissions || [],
+      emergency_contact: createUserDto.emergency_contact || "+7 777 777 7777",
+      role: createUserDto.role || "Worker",
+      department: createUserDto.department || "IT",
+      access_permissions: createUserDto.access_permissions || ["No camera", "Notifications", "Worker"],
     }
-    console.log(data);
     return this.authService.signUp(data)
   }
 
