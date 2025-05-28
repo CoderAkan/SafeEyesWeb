@@ -8,50 +8,50 @@ export declare class UserService {
     constructor(jwtService: JwtService, prisma: PrismaService);
     create(createUserDto: CreateUserDto): Promise<{
         user: {
-            id: number;
             email: string;
             password: string;
             full_name: string;
             emergency_contact: string;
             role: string;
             department: string;
-            refresh_token: string;
-            boss_id: string | null;
             access_permissions: string[];
+            refresh_token: string;
+            id: number;
+            boss_id: string | null;
             createdAt: Date;
             updatedAt: Date;
         };
         token: string;
     }>;
     findOne(email: string): Promise<{
-        id: number;
         password: string;
         full_name: string;
         emergency_contact: string;
         role: string;
         department: string;
         access_permissions: string[];
+        id: number;
     } | null>;
     findById(id: number): Promise<{
-        id: number;
         password: string;
         full_name: string;
         emergency_contact: string;
         role: string;
         department: string;
         access_permissions: string[];
+        id: number;
     } | null>;
     update(updateUserDto: UpdateUserDto, userId: number): Promise<{
-        id: number;
         email: string;
         password: string;
         full_name: string;
         emergency_contact: string;
         role: string;
         department: string;
-        refresh_token: string;
-        boss_id: string | null;
         access_permissions: string[];
+        refresh_token: string;
+        id: number;
+        boss_id: string | null;
         createdAt: Date;
         updatedAt: Date;
     }>;

@@ -18,26 +18,26 @@ export declare class AuthService {
         refresh_token: string;
     }>;
     findOne(email: string): Promise<{
-        id: number;
         full_name: string;
         emergency_contact: string;
         role: string;
         department: string;
         access_permissions: string[];
+        id: number;
     } | null>;
     hashData(data: string): Promise<string>;
     updateRefreshToken(userId: string, refresh_token: string): Promise<void>;
     validateUser(email: string, password: string): Promise<{
-        id: number;
         email: string;
         password: string;
         full_name: string;
         emergency_contact: string;
         role: string;
         department: string;
-        refresh_token: string;
-        boss_id: string | null;
         access_permissions: string[];
+        refresh_token: string;
+        id: number;
+        boss_id: string | null;
         createdAt: Date;
         updatedAt: Date;
     }>;
@@ -46,16 +46,16 @@ export declare class AuthService {
         refresh_token: string;
     }>;
     logout(userId: string): Promise<{
-        id: number;
         email: string;
         password: string;
         full_name: string;
         emergency_contact: string;
         role: string;
         department: string;
-        refresh_token: string;
-        boss_id: string | null;
         access_permissions: string[];
+        refresh_token: string;
+        id: number;
+        boss_id: string | null;
         createdAt: Date;
         updatedAt: Date;
     }>;
