@@ -4,8 +4,11 @@ import { DevTool } from '@hookform/devtools'
 import { LoginFormData } from '../types';
 import { authService } from '../services/auth.service';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../app/hooks';
+import { login } from '../app/features/user/userSlice'
 
 const AuthPage: FC = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate()
   const form = useForm<LoginFormData>();
   const { register, control, handleSubmit, formState } = form;
@@ -15,13 +18,13 @@ const AuthPage: FC = () => {
     try {
       const resp = await authService.login(data)
       if (resp) {
+        dispatch(login(resp))
         navigate('/mycompany')
       }
     }
     catch (err: any) {
       const error = err.response?.data?.message || 'An error occurred during login'
       console.log(error)
-      // toast.error(error.toString()) 
     }
   }
 

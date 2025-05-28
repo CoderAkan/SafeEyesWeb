@@ -19,7 +19,7 @@ export const router = createBrowserRouter([
                 element: <Home/>,
             },
             {
-                path: 'company', // Everything about a company, active and inactive cameras, latest notifications, personnel
+                path: 'mycompany', // Everything about a company, active and inactive cameras, latest notifications, personnel
                 element: <MyCompany />,
             },
             {

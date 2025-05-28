@@ -4,7 +4,13 @@ export type LoginFormData = {
 }
 
 export type LoginResponseData = {
-    id: number,
-    email: string,
-    token: string
+    access_token: string,
+    refresh_token: string
+}
+
+export type RootState = {
+    user: {
+        access_token: string;
+        refresh_token: string;
+    }
 }

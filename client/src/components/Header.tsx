@@ -2,9 +2,27 @@ import {FC} from 'react'
 import { Link, NavLink } from 'react-router-dom';
 import logo from '../assets/logo.png'
 import {FaSignOutAlt} from 'react-icons/fa'
+import { useSelector } from 'react-redux';
+import { RootState } from '../types';
+import { logout } from '../app/features/user/userSlice';
+import { useAppDispatch } from '../app/hooks';
 
 const Header: FC = () => {
-    const isAuth = false;
+    const dispatch = useAppDispatch();
+    
+    const { access_token } = useSelector((state: RootState) => state.user);
+    const isAuth = !!access_token;
+    
+    const onLogOutHandler = async () => {
+        try {
+          dispatch(logout())
+        }
+        catch (err: any) {
+          const error = err.response?.data?.message || 'An error occurred during logout'
+          console.log(error)
+        }
+      }
+
     return (
         <header className='flex items-center min-w-screen fixed justify-between p-4 shadow-sm bg-white backdrop-blue-sm'> 
             <Link to='/'>
@@ -19,7 +37,7 @@ const Header: FC = () => {
                                 <NavLink to={'/'} className={({ isActive }: { isActive: boolean }) => isActive ? 'text-slate-900' : 'text-slate-400'}> Главная </NavLink>
                             </li>
                             <li>
-                                <NavLink to={'/company'} className={({ isActive }: { isActive: boolean }) => isActive ? 'text-slate-900' : 'text-slate-400'}> Моя компания </NavLink>
+                                <NavLink to={'/mycompany'} className={({ isActive }: { isActive: boolean }) => isActive ? 'text-slate-900' : 'text-slate-400'}> Моя компания </NavLink>
                             </li>
                             <li>
                                 <NavLink to={'/personnel'} className={({ isActive }: { isActive: boolean }) => isActive ? 'text-slate-900' : 'text-slate-400'}> Работники </NavLink>
@@ -34,7 +52,7 @@ const Header: FC = () => {
             {/* Actions */}
             {
                 isAuth ? (
-                    <button className='flex gap-2 items-center text-white py-2 px-4 rounded-md disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:bg-gray-400 bg-rose-900 hover:bg-rose-800'>
+                    <button onClick={onLogOutHandler} className='flex gap-2 items-center text-white py-2 px-4 rounded-md disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:bg-gray-400 bg-rose-900 hover:bg-rose-800'>
                         <span>Выйти</span>    
                         <FaSignOutAlt />
                     </button>
