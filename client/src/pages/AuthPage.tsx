@@ -48,7 +48,7 @@ const AuthPage: FC = () => {
       
       if (resp) {
         dispatch(login(resp));
-        navigate('/mycompany');
+        navigate('/dashboard');
       }
     } catch (err: any) {
       const error = err.response?.data?.message || 'An error occurred during authentication';

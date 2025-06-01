@@ -37,7 +37,7 @@ const Header: FC = () => {
                                 <NavLink to={'/'} className={({ isActive }: { isActive: boolean }) => isActive ? 'text-slate-900' : 'text-slate-400'}> Главная </NavLink>
                             </li>
                             <li>
-                                <NavLink to={'/mycompany'} className={({ isActive }: { isActive: boolean }) => isActive ? 'text-slate-900' : 'text-slate-400'}> Моя компания </NavLink>
+                                <NavLink to={'/dashboard'} className={({ isActive }: { isActive: boolean }) => isActive ? 'text-slate-900' : 'text-slate-400'}> Моя компания </NavLink>
                             </li>
                             <li>
                                 <NavLink to={'/personnel'} className={({ isActive }: { isActive: boolean }) => isActive ? 'text-slate-900' : 'text-slate-400'}> Работники </NavLink>

@@ -1,8 +1,10 @@
 import {FC} from 'react'
+import SideBar from '../components/SideBar'
 
 const Cameras: FC = () => {
   return (
-    <div>
+    <div className='flex'>
+      <SideBar />
       Cameras
     </div>
   )
