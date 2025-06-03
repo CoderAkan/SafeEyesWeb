@@ -25,3 +25,13 @@ export type RegistrationFormData = {
     access_permissions?: string[],
     refresh_token?: string
 }
+
+export type FireIncident = {
+    timestamp: Date,
+    severity: Number,
+    detected_by_camera: String,
+    detected_by_camera_id: Number,
+    worker: String,
+    worker_id: Number,
+    status: String
+  }

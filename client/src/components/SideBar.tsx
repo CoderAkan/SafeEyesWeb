@@ -9,7 +9,7 @@ const SideBar: FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   return (
-    <div className='h-screen w-1/6 flex bg-white items-center flex-col'>
+    <div className='h-screen fixed w-1/6 flex bg-white items-center flex-col'>
       <div id="Logo" className='mt-6'>
         <img src={logo} alt="" className='rounded-lg cursor-pointer' width={50} height={50} onClick={() => {navigate('/dashboard')}}/>
       </div>

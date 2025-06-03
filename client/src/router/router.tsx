@@ -14,6 +14,7 @@ import Settings from "../pages/Settings";
 import FireLogs from "../pages/Incidents/FireLogs";
 import PPELogs from "../pages/Incidents/PPELogs";
 import PhoneLogs from "../pages/Incidents/PhoneLogs";
+import FireDetailsPage from "../pages/Incidents/DetailedPages/FireDetailsPage";
 
 export const router = createBrowserRouter([
     {
@@ -65,7 +66,10 @@ export const router = createBrowserRouter([
                 path: 'fire',
                 element: <FireLogs />
             },
-
+            {
+                path: 'fire/:id',
+                element: <FireDetailsPage />
+            },
             {
                 path: 'ppe',
                 element: <PPELogs />
