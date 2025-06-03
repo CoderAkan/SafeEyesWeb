@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCameraDto } from './dto/create-camera.dto';
 import { UpdateCameraDto } from './dto/update-camera.dto';
 import { PrismaService } from 'prisma/prisma.service';
@@ -27,6 +27,14 @@ export class CameraService {
   }
 
   async findAll(userId: number) {
+    console.log('Camera service - userId received:', userId);
+    console.log('Camera service - userId type:', typeof userId);
+    console.log('Camera service - userId is NaN:', isNaN(userId));
+  
+    if (!userId || isNaN(userId)) {
+      throw new BadRequestException(`Valid User ID is required. Received: ${userId}`);
+    }
+  
     return await this.prisma.camera.findMany({
       where: {
         responsible_person_id: userId,

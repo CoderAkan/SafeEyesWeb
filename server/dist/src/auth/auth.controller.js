@@ -35,7 +35,7 @@ let AuthController = class AuthController {
         return this.authService.signUp(data);
     }
     async login(req) {
-        const tokens = await this.authService.getTokens(req.user.id.toString(), req.user.full_name);
+        const tokens = await this.authService.getTokens(req.user.id.toString(), req.user.full_name, req.user.email);
         await this.authService.updateRefreshToken(req.user.id.toString(), tokens.refresh_token);
         return tokens;
     }

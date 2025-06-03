@@ -31,6 +31,12 @@ let CameraService = class CameraService {
         });
     }
     async findAll(userId) {
+        console.log('Camera service - userId received:', userId);
+        console.log('Camera service - userId type:', typeof userId);
+        console.log('Camera service - userId is NaN:', isNaN(userId));
+        if (!userId || isNaN(userId)) {
+            throw new common_1.BadRequestException(`Valid User ID is required. Received: ${userId}`);
+        }
         return await this.prisma.camera.findMany({
             where: {
                 responsible_person_id: userId,

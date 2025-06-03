@@ -6,31 +6,23 @@ export declare class UserController {
     constructor(userService: UserService);
     create(createUserDto: CreateUserDto): Promise<{
         user: {
+            id: number;
             email: string;
             password: string;
             full_name: string;
             emergency_contact: string;
             role: string;
             department: string;
-            access_permissions: string[];
             refresh_token: string;
-            id: number;
             boss_id: string | null;
+            access_permissions: string[];
             createdAt: Date;
             updatedAt: Date;
         };
         token: string;
     }>;
     findOne(req: any): Promise<{
-        password: string;
-        full_name: string;
-        emergency_contact: string;
-        role: string;
-        department: string;
-        access_permissions: string[];
         id: number;
-    } | null>;
-    update(updateUserDto: UpdateUserDto, req: any): Promise<{
         email: string;
         password: string;
         full_name: string;
@@ -38,9 +30,18 @@ export declare class UserController {
         role: string;
         department: string;
         access_permissions: string[];
-        refresh_token: string;
+    } | null>;
+    update(updateUserDto: UpdateUserDto, req: any): Promise<{
         id: number;
+        email: string;
+        password: string;
+        full_name: string;
+        emergency_contact: string;
+        role: string;
+        department: string;
+        refresh_token: string;
         boss_id: string | null;
+        access_permissions: string[];
         createdAt: Date;
         updatedAt: Date;
     }>;

@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { PrismaService } from 'prisma/prisma.service';
 import * as argon2 from 'argon2';
 import { JwtService } from '@nestjs/jwt';
@@ -30,7 +30,7 @@ export class AuthService {
       refresh_token: "",
     });
   
-    const tokens = await this.getTokens(newUser.user.id.toString(), newUser.user.full_name);
+    const tokens = await this.getTokens(newUser.user.id.toString(), newUser.user.full_name, newUser.user.email);
     
     await this.updateRefreshToken(newUser.user.id.toString(), tokens.refresh_token);
     
@@ -43,12 +43,15 @@ export class AuthService {
     const passwordMatches = await argon2.verify(user.password, password);
     if (!passwordMatches)
       throw new BadRequestException('Password is incorrect');
-    const tokens = await this.getTokens(user.id.toString(), user.full_name);
+    const tokens = await this.getTokens(user.id.toString(), user.full_name, user.email);
     await this.updateRefreshToken(user.id.toString(), tokens.refresh_token);
     return tokens;
   }
 
   async findOne(email: string) {
+    if (!email) {
+      return new BadRequestException("email: ", email);
+    }
     return await this.prisma.user.findUnique({
       where: {email},
       select: {
@@ -85,12 +88,13 @@ export class AuthService {
   }
 
 
-  async getTokens(userId: string, username: string) {
+  async getTokens(userId: string, username: string, email: string) {
     const [access_token, refresh_token] = await Promise.all([
       this.jwtService.signAsync(
         {
           sub: userId,
           username,
+          email
         },
         {
           secret: this.configService.get<string>('JWT_ACCESS_SECRET'),
@@ -101,6 +105,7 @@ export class AuthService {
         {
           sub: userId,
           username,
+          email
         },
         {
           secret: this.configService.get<string>('JWT_REFRESH_SECRET'),

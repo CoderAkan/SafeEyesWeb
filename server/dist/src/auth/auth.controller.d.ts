@@ -11,7 +11,7 @@ export declare class AuthController {
         access_token: string;
         refresh_token: string;
     }>;
-    getProfile(req: any): Promise<{
+    getProfile(req: any): Promise<import("@nestjs/common").BadRequestException | {
         id: number;
         full_name: string;
         emergency_contact: string;

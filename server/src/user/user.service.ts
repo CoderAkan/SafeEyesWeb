@@ -45,6 +45,7 @@ export class UserService {
         full_name: true,
         department: true,
         emergency_contact: true,
+        email: true,
         role: true,
         access_permissions: true,
         password: true,
@@ -58,6 +59,7 @@ export class UserService {
       where: {id: id},
       select: {
         id: true,
+        email: true,
         full_name: true,
         department: true,
         emergency_contact: true,

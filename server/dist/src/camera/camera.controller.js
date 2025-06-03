@@ -23,14 +23,15 @@ let CameraController = class CameraController {
         this.cameraService = cameraService;
     }
     create(createCameraDto, req) {
-        console.log("User ID from JWT:", req.user?.id);
-        if (!req.user?.id) {
+        const userId = Number(req.user.sub);
+        if (!userId) {
             throw new common_1.UnauthorizedException("User ID is missing");
         }
-        return this.cameraService.create(createCameraDto, +req.user.id);
+        return this.cameraService.create(createCameraDto, userId);
     }
     findAll(req) {
-        return this.cameraService.findAll(+req.user.id);
+        const userId = Number(req.user.sub);
+        return this.cameraService.findAll(userId);
     }
     findOne(id) {
         return this.cameraService.findOne(+id);

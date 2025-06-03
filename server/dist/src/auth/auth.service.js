@@ -32,7 +32,7 @@ let AuthService = class AuthService {
             ...createUserDto,
             refresh_token: "",
         });
-        const tokens = await this.getTokens(newUser.user.id.toString(), newUser.user.full_name);
+        const tokens = await this.getTokens(newUser.user.id.toString(), newUser.user.full_name, newUser.user.email);
         await this.updateRefreshToken(newUser.user.id.toString(), tokens.refresh_token);
         return tokens;
     }
@@ -43,11 +43,14 @@ let AuthService = class AuthService {
         const passwordMatches = await argon2.verify(user.password, password);
         if (!passwordMatches)
             throw new common_1.BadRequestException('Password is incorrect');
-        const tokens = await this.getTokens(user.id.toString(), user.full_name);
+        const tokens = await this.getTokens(user.id.toString(), user.full_name, user.email);
         await this.updateRefreshToken(user.id.toString(), tokens.refresh_token);
         return tokens;
     }
     async findOne(email) {
+        if (!email) {
+            return new common_1.BadRequestException("email: ", email);
+        }
         return await this.prisma.user.findUnique({
             where: { email },
             select: {
@@ -80,11 +83,12 @@ let AuthService = class AuthService {
         }
         throw new common_1.UnauthorizedException('User or password is incorrect');
     }
-    async getTokens(userId, username) {
+    async getTokens(userId, username, email) {
         const [access_token, refresh_token] = await Promise.all([
             this.jwtService.signAsync({
                 sub: userId,
                 username,
+                email
             }, {
                 secret: this.configService.get('JWT_ACCESS_SECRET'),
                 expiresIn: '15m',
@@ -92,6 +96,7 @@ let AuthService = class AuthService {
             this.jwtService.signAsync({
                 sub: userId,
                 username,
+                email
             }, {
                 secret: this.configService.get('JWT_REFRESH_SECRET'),
                 expiresIn: '7d',

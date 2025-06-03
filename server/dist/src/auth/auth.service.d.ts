@@ -1,3 +1,4 @@
+import { BadRequestException } from '@nestjs/common';
 import { PrismaService } from 'prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/user/user.service';
@@ -17,45 +18,45 @@ export declare class AuthService {
         access_token: string;
         refresh_token: string;
     }>;
-    findOne(email: string): Promise<{
+    findOne(email: string): Promise<BadRequestException | {
+        id: number;
         full_name: string;
         emergency_contact: string;
         role: string;
         department: string;
         access_permissions: string[];
-        id: number;
     } | null>;
     hashData(data: string): Promise<string>;
     updateRefreshToken(userId: string, refresh_token: string): Promise<void>;
     validateUser(email: string, password: string): Promise<{
+        id: number;
         email: string;
         password: string;
         full_name: string;
         emergency_contact: string;
         role: string;
         department: string;
-        access_permissions: string[];
         refresh_token: string;
-        id: number;
         boss_id: string | null;
+        access_permissions: string[];
         createdAt: Date;
         updatedAt: Date;
     }>;
-    getTokens(userId: string, username: string): Promise<{
+    getTokens(userId: string, username: string, email: string): Promise<{
         access_token: string;
         refresh_token: string;
     }>;
     logout(userId: string): Promise<{
+        id: number;
         email: string;
         password: string;
         full_name: string;
         emergency_contact: string;
         role: string;
         department: string;
-        access_permissions: string[];
         refresh_token: string;
-        id: number;
         boss_id: string | null;
+        access_permissions: string[];
         createdAt: Date;
         updatedAt: Date;
     }>;

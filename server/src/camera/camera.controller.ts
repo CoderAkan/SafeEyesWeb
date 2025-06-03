@@ -12,16 +12,18 @@ export class CameraController {
   @UseGuards(JwtAuthGuard)
   @UsePipes(new ValidationPipe())
   create(@Body() createCameraDto: CreateCameraDto, @Req() req) {
-    console.log("User ID from JWT:", req.user?.id);
-    if (!req.user?.id) {
+    const userId = Number(req.user.sub);
+    if (!userId) {
         throw new UnauthorizedException("User ID is missing");
     }
-    return this.cameraService.create(createCameraDto, +req.user.id);  }
+    return this.cameraService.create(createCameraDto, userId);  
+  }
 
   @Get()
   @UseGuards(JwtAuthGuard)
   findAll(@Req() req) {
-    return this.cameraService.findAll(+req.user.id);
+    const userId = Number(req.user.sub);
+    return this.cameraService.findAll(userId);
   }
 
   @Get(':id')
