@@ -56,7 +56,7 @@ const FireLogs: FC = () => {
                     <table className="table-auto w-full text-left border-collapse border border-gray-300">
                         <thead className="bg-blue-100">
                             <tr>
-                              <th className="px-6 py-3 font-medium text-gray-700">ID</th>
+                              <th className="px-6 py-3 font-medium text-gray-700"></th>
                               <th className="px-6 py-3 font-medium text-gray-700">Name</th>
                               <th className="px-6 py-3 font-medium text-gray-700">Date</th>
                              </tr>

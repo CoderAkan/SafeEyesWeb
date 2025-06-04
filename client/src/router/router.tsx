@@ -15,6 +15,8 @@ import FireLogs from "../pages/Incidents/FireLogs";
 import PPELogs from "../pages/Incidents/PPELogs";
 import PhoneLogs from "../pages/Incidents/PhoneLogs";
 import FireDetailsPage from "../pages/Incidents/DetailedPages/FireDetailsPage";
+import PPEDetailsPage from "../pages/Incidents/DetailedPages/PPEDetailsPage";
+import PhoneDetailsPage from "../pages/Incidents/DetailedPages/PhoneDetailsPage";
 
 export const router = createBrowserRouter([
     {
@@ -75,8 +77,16 @@ export const router = createBrowserRouter([
                 element: <PPELogs />
             },
             {
+                path: 'ppe/:id',
+                element: <PPEDetailsPage />
+            },
+            {
                 path: 'phone',
                 element: <PhoneLogs />
+            },
+            {
+                path: 'phone/:id',
+                element: <PhoneDetailsPage />
             },
         ]
     }

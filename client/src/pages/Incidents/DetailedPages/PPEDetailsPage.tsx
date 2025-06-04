@@ -14,7 +14,7 @@ const StyledRating = styled(Rating)({
   },
 });
 
-const FireDetailsPage: FC = () => {
+const PPEDetailsPage: FC = () => {
 
   const incidentDetails: FireIncident = {
     timestamp: new Date,
@@ -68,7 +68,7 @@ const FireDetailsPage: FC = () => {
         <SideBar />
         <div className='ml-auto w-5/6 text-4xl px-4 pt-2 gap-y-10 justify-evenly items-center'>
             <div className='my-5'><ArrowLeft onClick={() => {navigate('/fire')}}/></div>
-            <div>Fire incident</div>
+            <div>PPE incident</div>
             <div className='text-2xl flex mt-10 justify-between'>
                 <div>Severity:</div>
                 <div className="flex"> 
@@ -110,4 +110,4 @@ const FireDetailsPage: FC = () => {
   )
 }
 
-export default FireDetailsPage
+export default PPEDetailsPage;

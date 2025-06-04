@@ -63,7 +63,7 @@ const PhoneLogs: FC = () => {
                             </thead>
                             <tbody>
                               {currentItems.map((person) => (
-                                <tr onClick={() => {navigate(`/fire/${person.number}`)}} key={person.number} className="border-b hover:bg-gray-50 hover:text-gray-700">
+                                <tr onClick={() => {navigate(`/phone/${person.number}`)}} key={person.number} className="border-b hover:bg-gray-50 hover:text-gray-700">
                                   <td className="px-6 py-3">{person.number}</td>
                                   <td className="px-6 py-3">{person.name}</td>
                                   <td className="px-6 py-3">{person.date}</td>
