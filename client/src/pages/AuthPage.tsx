@@ -12,7 +12,7 @@ import Footer from '../components/Footer';
 const AuthPage: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate()
-  const [isLogin, setIsLogin] = useState<Boolean>(false)
+  const [isLogin, setIsLogin] = useState<Boolean>(true)
   const form = useForm<RegistrationFormData>();
   const { register, control, handleSubmit, formState } = form;
   const { errors } = formState;

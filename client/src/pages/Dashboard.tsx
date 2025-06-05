@@ -4,9 +4,9 @@ import { BarChart } from '@mui/x-charts/BarChart';
 import { useNavigate } from 'react-router-dom';
 
 const Dashboard: FC = () => {
-  const fire = 1;
-  const ppe = 0;
-  const phone = 1;
+  const fire = 24;
+  const ppe = 25;
+  const phone = 67;
 
   const navigate = useNavigate();
 

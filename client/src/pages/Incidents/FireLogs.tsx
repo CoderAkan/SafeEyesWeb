@@ -1,11 +1,36 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import SideBar from '../../components/SideBar'
 import { BarChart } from '@mui/x-charts/BarChart';
 import { useNavigate } from 'react-router-dom';
+import { instance } from '../../api/axios.api';
+import { Incident } from '../../types';
 
 const FireLogs: FC = () => {
 
-    const firePaginatedTable = [
+    const [firePaginatedTable, setFirePaginatedTable] = useState<Incident[]>([])
+
+    useEffect(() => {
+      const fetchFireLogs = async () => {
+        try {
+          const resp = await instance.get('/incident', {
+            params: {
+              type: 'Fire'
+            }
+          });
+          if (resp.data != null) {
+            setFirePaginatedTable(resp.data)
+          } else {
+            console.log(resp.data);
+          }
+        }
+        catch (error) {
+          console.log(error);
+        }
+      }
+      fetchFireLogs();
+    }, [])
+
+    const fireLogs = [
         {number: 1, date: "01/01/2025", name: "Sergey W."},
         {number: 2, date: "03/01/2025", name: "Alan J."},
         {number: 3, date: "03/01/2025", name: "Mark R."},
@@ -56,17 +81,17 @@ const FireLogs: FC = () => {
                     <table className="table-auto w-full text-left border-collapse border border-gray-300">
                         <thead className="bg-blue-100">
                             <tr>
-                              <th className="px-6 py-3 font-medium text-gray-700"></th>
+                              <th className="px-6 py-3 font-medium text-gray-700">ID</th>
                               <th className="px-6 py-3 font-medium text-gray-700">Name</th>
                               <th className="px-6 py-3 font-medium text-gray-700">Date</th>
                              </tr>
                             </thead>
                             <tbody>
-                              {currentItems.map((person) => (
-                                <tr onClick={() => {navigate(`/fire/${person.number}`)}} key={person.number} className="border-b hover:bg-gray-50 hover:text-gray-700">
-                                  <td className="px-6 py-3">{person.number}</td>
-                                  <td className="px-6 py-3">{person.name}</td>
-                                  <td className="px-6 py-3">{person.date}</td>
+                              {currentItems.map((fire, index) => (
+                                <tr onClick={() => {navigate(`/fire/${fire.id}`)}} key={`${fire.id}-${index}`} className="border-b hover:bg-gray-50 hover:text-gray-700">
+                                  <td className="px-6 py-3">{index+1}</td>
+                                  <td className="px-6 py-3">{fire.worker.full_name}</td>
+                                  <td className="px-6 py-3">{fire.timestamp.toString()}</td>
                                 </tr>
                               ))}
                            </tbody>

@@ -69,7 +69,7 @@ export const router = createBrowserRouter([
                 element: <FireLogs />
             },
             {
-                path: 'fire/:id',
+                path: 'fire/:fireId',
                 element: <FireDetailsPage />
             },
             {
@@ -77,7 +77,7 @@ export const router = createBrowserRouter([
                 element: <PPELogs />
             },
             {
-                path: 'ppe/:id',
+                path: 'ppe/:ppeId',
                 element: <PPEDetailsPage />
             },
             {
@@ -85,7 +85,7 @@ export const router = createBrowserRouter([
                 element: <PhoneLogs />
             },
             {
-                path: 'phone/:id',
+                path: 'phone/:phoneId',
                 element: <PhoneDetailsPage />
             },
         ]

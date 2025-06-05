@@ -52,7 +52,8 @@ export type ICamera = {
     responsible_person: IUser
 }
 
-export type FireIncident = {
+export type Incident = {
+    id: Number,
     timestamp: Date,
     severity: Number,
     detected_by_camera: ICamera,

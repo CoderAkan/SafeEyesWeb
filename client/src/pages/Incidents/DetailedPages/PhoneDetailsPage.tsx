@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import SideBar from '../../../components/SideBar'
-import { FireIncident } from '../../../types'
+import { Incident } from '../../../types'
 import { ArrowLeft} from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { Rating, styled } from '@mui/material'
@@ -16,7 +16,8 @@ const StyledRating = styled(Rating)({
 
 const PhoneDetailsPage: FC = () => {
 
-  const incidentDetails: FireIncident = {
+  const incidentDetails: Incident = {
+    id: 1,
     timestamp: new Date,
     severity: 1,
     detected_by_camera: {
@@ -67,7 +68,7 @@ const PhoneDetailsPage: FC = () => {
     <div className='flex'>
         <SideBar />
         <div className='ml-auto w-5/6 text-4xl px-4 pt-2 gap-y-10 justify-evenly items-center'>
-            <div className='my-5'><ArrowLeft onClick={() => {navigate('/fire')}}/></div>
+            <div className='my-5'><ArrowLeft onClick={() => {navigate('/phone')}}/></div>
             <div>Phone incident</div>
             <div className='text-2xl flex mt-10 justify-between'>
                 <div>Severity:</div>

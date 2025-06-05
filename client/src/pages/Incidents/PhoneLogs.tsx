@@ -1,11 +1,36 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import SideBar from '../../components/SideBar'
 import { BarChart } from '@mui/x-charts/BarChart';
 import { useNavigate } from 'react-router-dom';
+import { Incident } from '../../types';
+import { instance } from '../../api/axios.api';
 
 const PhoneLogs: FC = () => {
 
-    const phonePaginatedTable = [
+  const [phonePaginatedTable, setPhonePaginatedTable] = useState<Incident[]>([])
+
+  useEffect(() => {
+    const fetchFireLogs = async () => {
+      try {
+        const resp = await instance.get('/incident', {
+          params: {
+            type: 'Phone'
+          }
+        });
+        if (resp.data != null) {
+          setPhonePaginatedTable(resp.data)
+        } else {
+          console.log(resp.data);
+        }
+      }
+        catch (error) {
+          console.log(error);
+        }
+        }
+      fetchFireLogs();
+    }, [])
+
+    const phonePaginatedTable2 = [
         {number: 1, date: "01/01/2025", name: "Sergey W."},
         {number: 2, date: "03/01/2025", name: "Alan J."},
         {number: 3, date: "03/01/2025", name: "Mark R."},
@@ -62,11 +87,11 @@ const PhoneLogs: FC = () => {
                              </tr>
                             </thead>
                             <tbody>
-                              {currentItems.map((person) => (
-                                <tr onClick={() => {navigate(`/phone/${person.number}`)}} key={person.number} className="border-b hover:bg-gray-50 hover:text-gray-700">
-                                  <td className="px-6 py-3">{person.number}</td>
-                                  <td className="px-6 py-3">{person.name}</td>
-                                  <td className="px-6 py-3">{person.date}</td>
+                              {currentItems.map((incident, index) => (
+                                <tr onClick={() => {navigate(`/ppe/${incident.id}`)}} key={`${incident.id}-${index}`} className="border-b hover:bg-gray-50 hover:text-gray-700">
+                                  <td className="px-6 py-3">{index+1}</td>
+                                  <td className="px-6 py-3">{incident.worker.full_name}</td>
+                                  <td className="px-6 py-3">{incident.timestamp.toString()}</td>
                                 </tr>
                               ))}
                            </tbody>
