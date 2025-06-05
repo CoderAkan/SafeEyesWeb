@@ -16,16 +16,16 @@ export declare class IncidentService {
             responsible_person_id: number;
         };
         worker: {
+            id: number;
             email: string;
             password: string;
             full_name: string;
             emergency_contact: string;
             role: string;
             department: string;
-            access_permissions: string[];
             refresh_token: string;
-            id: number;
             boss_id: string | null;
+            access_permissions: string[];
             createdAt: Date;
             updatedAt: Date;
         } | null;
@@ -34,9 +34,9 @@ export declare class IncidentService {
         timestamp: Date;
         type: string;
         severity: number;
-        status: string;
         detected_by_camera_id: number;
         worker_id: number | null;
+        status: string;
     }>;
     findAll(userId: number, userRole: string, filters: IncidentFilterDto): Promise<({
         detected_by_camera: {
@@ -49,16 +49,16 @@ export declare class IncidentService {
             responsible_person_id: number;
         };
         worker: {
+            id: number;
             email: string;
             password: string;
             full_name: string;
             emergency_contact: string;
             role: string;
             department: string;
-            access_permissions: string[];
             refresh_token: string;
-            id: number;
             boss_id: string | null;
+            access_permissions: string[];
             createdAt: Date;
             updatedAt: Date;
         } | null;
@@ -67,35 +67,59 @@ export declare class IncidentService {
         timestamp: Date;
         type: string;
         severity: number;
-        status: string;
         detected_by_camera_id: number;
         worker_id: number | null;
+        status: string;
     })[]>;
-    findOne(id: number): Promise<{
+    findOne(id: number): Promise<({
+        detected_by_camera: {
+            id: number;
+            status: string;
+            location: string;
+            last_maintenance: Date;
+            rtsp_address: string | null;
+            resolution: string;
+            responsible_person_id: number;
+        };
+        worker: {
+            id: number;
+            email: string;
+            password: string;
+            full_name: string;
+            emergency_contact: string;
+            role: string;
+            department: string;
+            refresh_token: string;
+            boss_id: string | null;
+            access_permissions: string[];
+            createdAt: Date;
+            updatedAt: Date;
+        } | null;
+    } & {
         id: number;
         timestamp: Date;
         type: string;
         severity: number;
-        status: string;
         detected_by_camera_id: number;
         worker_id: number | null;
-    } | null>;
+        status: string;
+    }) | null>;
     update(id: number, updateIncidentDto: UpdateIncidentDto): Promise<{
         id: number;
         timestamp: Date;
         type: string;
         severity: number;
-        status: string;
         detected_by_camera_id: number;
         worker_id: number | null;
+        status: string;
     }>;
     remove(id: number): Promise<{
         id: number;
         timestamp: Date;
         type: string;
         severity: number;
-        status: string;
         detected_by_camera_id: number;
         worker_id: number | null;
+        status: string;
     }>;
 }

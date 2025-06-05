@@ -41,4 +41,8 @@ __decorate([
     (0, class_transformer_1.Type)(() => Number),
     __metadata("design:type", Array)
 ], IncidentFilterDto.prototype, "workerIds", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], IncidentFilterDto.prototype, "type", void 0);
 //# sourceMappingURL=incident-filter.dto.js.map

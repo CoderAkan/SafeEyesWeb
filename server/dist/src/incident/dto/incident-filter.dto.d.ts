@@ -4,4 +4,5 @@ export declare class IncidentFilterDto {
     severity?: string;
     status?: string;
     workerIds?: number[];
+    type?: string;
 }

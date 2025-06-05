@@ -6,8 +6,8 @@ export declare class CameraService {
     constructor(prisma: PrismaService);
     create(createCameraDto: CreateCameraDto, userId: number): Promise<{
         id: number;
-        location: string;
         status: string;
+        location: string;
         last_maintenance: Date;
         rtsp_address: string | null;
         resolution: string;
@@ -15,23 +15,23 @@ export declare class CameraService {
     }>;
     findAll(userId: number): Promise<({
         responsible_person: {
-            id: number;
             email: string;
             password: string;
             full_name: string;
             emergency_contact: string;
             role: string;
             department: string;
-            refresh_token: string;
-            boss_id: string | null;
             access_permissions: string[];
+            refresh_token: string;
+            id: number;
+            boss_id: string | null;
             createdAt: Date;
             updatedAt: Date;
         };
     } & {
         id: number;
-        location: string;
         status: string;
+        location: string;
         last_maintenance: Date;
         rtsp_address: string | null;
         resolution: string;
@@ -39,8 +39,8 @@ export declare class CameraService {
     })[]>;
     findOne(id: number): Promise<{
         id: number;
-        location: string;
         status: string;
+        location: string;
         last_maintenance: Date;
         rtsp_address: string | null;
         resolution: string;
@@ -48,8 +48,8 @@ export declare class CameraService {
     } | null>;
     update(id: number, updateCameraDto: UpdateCameraDto): Promise<{
         id: number;
-        location: string;
         status: string;
+        location: string;
         last_maintenance: Date;
         rtsp_address: string | null;
         resolution: string;
@@ -57,8 +57,8 @@ export declare class CameraService {
     }>;
     remove(id: number): Promise<{
         id: number;
-        location: string;
         status: string;
+        location: string;
         last_maintenance: Date;
         rtsp_address: string | null;
         resolution: string;

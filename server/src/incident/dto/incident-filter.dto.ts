@@ -22,4 +22,7 @@ export class IncidentFilterDto {
   @IsArray()
   @Type(() => Number) 
   workerIds?: number[];
+
+  @IsOptional()
+  type?: string;
 }

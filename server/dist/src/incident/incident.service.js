@@ -50,6 +50,8 @@ let IncidentService = class IncidentService {
             where.status = filters.status;
         if (filters.workerIds?.length)
             where.worker_id = { in: filters.workerIds };
+        if (filters.type)
+            where.type = filters.type;
         return await this.prisma.incident.findMany({
             where,
             include: {
@@ -60,7 +62,11 @@ let IncidentService = class IncidentService {
     }
     async findOne(id) {
         return await this.prisma.incident.findUnique({
-            where: { id }
+            where: { id },
+            include: {
+                detected_by_camera: true,
+                worker: true,
+            }
         });
     }
     async update(id, updateIncidentDto) {

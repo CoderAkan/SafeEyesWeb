@@ -2,7 +2,6 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateIncidentDto } from './dto/create-incident.dto';
 import { UpdateIncidentDto } from './dto/update-incident.dto';
 import { PrismaService } from 'prisma/prisma.service';
-import { IIncidentFilters } from 'src/types/types';
 import { IncidentFilterDto } from './dto/incident-filter.dto';
 import { Prisma } from '@prisma/client';
 
@@ -47,6 +46,7 @@ export class IncidentService {
     if (filters.severity) where.severity = filters.severity;
     if (filters.status) where.status = filters.status;
     if (filters.workerIds?.length) where.worker_id = { in: filters.workerIds };
+    if (filters.type) where.type = filters.type;
   
     return await this.prisma.incident.findMany({
       where,
@@ -59,7 +59,11 @@ export class IncidentService {
 
   async findOne(id: number) {
     return await this.prisma.incident.findUnique({
-      where: {id}
+      where: {id},
+      include: {
+        detected_by_camera: true,
+        worker: true,
+      }
     })
   }
 
