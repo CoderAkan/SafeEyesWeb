@@ -42,6 +42,53 @@ let CameraController = class CameraController {
     remove(id) {
         return this.cameraService.remove(+id);
     }
+    async startStream(id, req) {
+        const userId = Number(req.user.sub);
+        const cameraId = Number(id);
+        if (!userId) {
+            throw new common_1.UnauthorizedException("User ID is missing");
+        }
+        await this.cameraService.startCameraStream(cameraId, userId);
+        return {
+            message: 'Camera stream started successfully',
+            cameraId,
+            status: 'streaming'
+        };
+    }
+    stopStream(id) {
+        const cameraId = Number(id);
+        this.cameraService.stopCameraStream(cameraId);
+        return {
+            message: 'Camera stream stopped successfully',
+            cameraId,
+            status: 'stopped'
+        };
+    }
+    getStreamStatus(id) {
+        const cameraId = Number(id);
+        const isStreaming = this.cameraService.getCameraStreamingStatus(cameraId);
+        return {
+            cameraId,
+            isStreaming,
+            status: isStreaming ? 'streaming' : 'stopped',
+            timestamp: new Date().toISOString()
+        };
+    }
+    getActiveStreams(req) {
+        const activeStreams = this.cameraService.getActiveStreams();
+        return {
+            activeStreams,
+            count: activeStreams.length,
+            timestamp: new Date().toISOString()
+        };
+    }
+    async stopAllStreams() {
+        await this.cameraService.cleanup();
+        return {
+            message: 'All camera streams stopped successfully',
+            timestamp: new Date().toISOString()
+        };
+    }
 };
 exports.CameraController = CameraController;
 __decorate([
@@ -87,6 +134,49 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], CameraController.prototype, "remove", null);
+__decorate([
+    (0, common_1.Post)(':id/stream/start'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], CameraController.prototype, "startStream", null);
+__decorate([
+    (0, common_1.Post)(':id/stream/stop'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], CameraController.prototype, "stopStream", null);
+__decorate([
+    (0, common_1.Get)(':id/stream/status'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], CameraController.prototype, "getStreamStatus", null);
+__decorate([
+    (0, common_1.Get)('streams/active'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], CameraController.prototype, "getActiveStreams", null);
+__decorate([
+    (0, common_1.Post)('streams/stop-all'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], CameraController.prototype, "stopAllStreams", null);
 exports.CameraController = CameraController = __decorate([
     (0, common_1.Controller)('camera'),
     __metadata("design:paramtypes", [camera_service_1.CameraService])

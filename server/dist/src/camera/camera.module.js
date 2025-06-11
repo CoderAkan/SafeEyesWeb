@@ -8,15 +8,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CameraModule = void 0;
 const common_1 = require("@nestjs/common");
-const camera_service_1 = require("./camera.service");
 const camera_controller_1 = require("./camera.controller");
+const camera_service_1 = require("./camera.service");
+const prisma_service_1 = require("../../prisma/prisma.service");
+const jwt_1 = require("@nestjs/jwt");
+const camera_gateway_1 = require("./camera.gateway");
 let CameraModule = class CameraModule {
 };
 exports.CameraModule = CameraModule;
 exports.CameraModule = CameraModule = __decorate([
     (0, common_1.Module)({
+        imports: [
+            jwt_1.JwtModule.register({
+                secret: process.env.JWT_SECRET,
+                signOptions: { expiresIn: '24h' },
+            }),
+        ],
         controllers: [camera_controller_1.CameraController],
-        providers: [camera_service_1.CameraService],
+        providers: [camera_service_1.CameraService, camera_gateway_1.WebSocketCameraGateway, prisma_service_1.PrismaService],
+        exports: [camera_service_1.CameraService],
     })
 ], CameraModule);
 //# sourceMappingURL=camera.module.js.map
