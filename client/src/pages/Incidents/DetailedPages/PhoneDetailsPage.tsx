@@ -1,9 +1,10 @@
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import SideBar from '../../../components/SideBar'
 import { Incident } from '../../../types'
 import { ArrowLeft} from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { Rating, styled } from '@mui/material'
+import { instance } from '../../../api/axios.api'
 
 const StyledRating = styled(Rating)({
   '& .MuiRating-iconEmpty': {
@@ -15,54 +16,65 @@ const StyledRating = styled(Rating)({
 });
 
 const PhoneDetailsPage: FC = () => {
+  const { phoneId } = useParams<{ phoneId: string }>(); 
+  const [phoneIncident, setPhoneIncident] = useState<Incident>();
+  const [loading, setLoading] = useState(true);
 
-  const incidentDetails: Incident = {
-    id: 1,
-    timestamp: new Date,
-    severity: 1,
-    detected_by_camera: {
-      id: 1,
-      location: "main hall right side",
-      status: "offline",
-      last_maintenance: new Date(),
-      rtsp_address: "rtsp://admin:password@192.168.1.100:554/live",
-      resolution: "FULL HD",
-      responsible_person_id: 8,
-      responsible_person: {
-            id: 8,
-            email: "akan123@gmail.com",
-            password: "$argon2id$v=19$m=65536,t=3,p=4$Sg4YPMzgNINa0fQBp2V9zA$8XBhOz84TAEIteF6Z1kMW6P0IWZW3697Go749QIGDB4",
-            full_name: "Kaiyrbay Akanseri",
-            emergency_contact: "+7 777 777 7777",
-            role: "ADMIN",
-            department: "IT",
-            refresh_token: "$argon2id$v=19$m=65536,t=3,p=4$IL8zQiDwbGbskreyzsYJiQ$2NRcT1pCVZC+t152TtDVwOmpovMgKQnJwIdUO7QJqhk",
-            boss_id: null,
-            access_permissions: [],
-            createdAt: new Date(),
-            updatedAt: new Date()
+    useEffect(() => {
+      const fetchFireLogs = async () => {
+        console.log("ID:", phoneId)
+        try {
+          const resp = await instance.get(`/incident/${phoneId}`);
+          console.log("Success")
+          console.log(resp.data)
+          console.log("Get Severity: ", resp.data.severity)
+          if (resp.data != null) {
+            setPhoneIncident(resp.data)
+            console.log("Phone Incident Severity: ", phoneIncident?.severity)
+          } else {
+            console.log(resp.data);
+          }
         }
-    },
-    detected_by_camera_id: 1,
-    worker: {
-      id: 8,
-      email: "akan123@gmail.com",
-      password: "$argon2id$v=19$m=65536,t=3,p=4$Sg4YPMzgNINa0fQBp2V9zA$8XBhOz84TAEIteF6Z1kMW6P0IWZW3697Go749QIGDB4",
-      full_name: "Kaiyrbay Akanseri",
-      emergency_contact: "+7 777 777 7777",
-      role: "ADMIN",
-      department: "IT",
-      refresh_token: "$argon2id$v=19$m=65536,t=3,p=4$IL8zQiDwbGbskreyzsYJiQ$2NRcT1pCVZC+t152TtDVwOmpovMgKQnJwIdUO7QJqhk",
-      boss_id: null,
-      access_permissions: [],
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },
-    worker_id: 8,
-    status: "Resolved"
-  }
+        catch (error) {
+          console.log(error);
+        } finally {
+          setLoading(false);
+        }
+      }
+      fetchFireLogs();
+    }, [])
 
   const navigate = useNavigate();
+
+  if (loading) {
+    return (
+        <div className='flex'>
+            <SideBar />
+            <div className='ml-auto w-5/6 text-4xl px-4 pt-2 gap-y-10 justify-evenly items-center'>
+                <div className='my-5'><ArrowLeft onClick={() => {navigate('/phone')}}/></div>
+                <div>Phone incident</div>
+                <div className='text-2xl flex mt-10 justify-between'>
+                    <div>Severity:</div>
+                </div>
+                <div className='text-2xl flex mt-10 justify-between'>
+                    <div>When it happened:</div>
+                </div>
+                <div className='text-2xl flex mt-10 justify-between'>
+                    <div>Status:</div>
+                </div>
+                <div className='text-2xl flex mt-10 justify-between'>
+                    <div>Which camera detected:</div>
+                </div>
+                <div className='text-2xl flex mt-10 justify-between'>
+                    <div>Which person was responsible:</div>
+                </div>
+                <div className='text-2xl flex mt-10 justify-between'>
+                    <div>Which department:</div>
+                </div>
+            </div>
+        </div>
+      )
+  }
 
   return (
     <div className='flex'>
@@ -73,37 +85,37 @@ const PhoneDetailsPage: FC = () => {
             <div className='text-2xl flex mt-10 justify-between'>
                 <div>Severity:</div>
                 <div className="flex"> 
-                  <StyledRating name="customized-10 border-1" defaultValue={Number(incidentDetails.severity)} max={3} readOnly />
+                  <StyledRating name="customized-10 border-1" value={Number(phoneIncident?.severity)} max={3} readOnly />
                 </div>
             </div>
             <div className='text-2xl flex mt-10 justify-between'>
                 <div>When it happened:</div>
                 <div className="flex"> 
-                  <p>{incidentDetails.timestamp.toString()}</p>
+                  <p>{phoneIncident?.timestamp.toString()}</p>
                 </div>
             </div>
             <div className='text-2xl flex mt-10 justify-between'>
                 <div>Status:</div>
                 <div className="flex"> 
-                  <p>{incidentDetails.status}</p>
+                  <p>{phoneIncident?.status}</p>
                 </div>
             </div>
             <div className='text-2xl flex mt-10 justify-between'>
                 <div>Which camera detected:</div>
                 <div className="flex"> 
-                  <p>{incidentDetails.detected_by_camera.location}</p>
+                  <p>{phoneIncident?.detected_by_camera.location}</p>
                 </div>
             </div>
             <div className='text-2xl flex mt-10 justify-between'>
                 <div>Which person was responsible:</div>
                 <div className="flex"> 
-                  <p>{incidentDetails.worker.full_name}</p>
+                  <p>{phoneIncident?.worker.full_name}</p>
                 </div>
             </div>
             <div className='text-2xl flex mt-10 justify-between'>
                 <div>Which department:</div>
                 <div className="flex"> 
-                  <p>{incidentDetails.worker.department}</p>
+                  <p>{phoneIncident?.worker.department}</p>
                 </div>
             </div>
         </div>

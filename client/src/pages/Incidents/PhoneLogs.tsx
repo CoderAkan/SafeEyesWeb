@@ -30,16 +30,6 @@ const PhoneLogs: FC = () => {
       fetchFireLogs();
     }, [])
 
-    const phonePaginatedTable2 = [
-        {number: 1, date: "01/01/2025", name: "Sergey W."},
-        {number: 2, date: "03/01/2025", name: "Alan J."},
-        {number: 3, date: "03/01/2025", name: "Mark R."},
-        {number: 4, date: "05/01/2025", name: "Mark J."},
-        {number: 5, date: "06/01/2025", name: "Akan K."},
-        {number: 6, date: "10/01/2025", name: "Gulim N."},
-        {number: 7, date: "11/01/2025", name: "Machambet Z."},
-        {number: 8, date: "12/01/2025", name: "Maksat K."},   
-    ]
 
     const navigate = useNavigate();
     
@@ -88,7 +78,7 @@ const PhoneLogs: FC = () => {
                             </thead>
                             <tbody>
                               {currentItems.map((incident, index) => (
-                                <tr onClick={() => {navigate(`/ppe/${incident.id}`)}} key={`${incident.id}-${index}`} className="border-b hover:bg-gray-50 hover:text-gray-700">
+                                <tr onClick={() => {navigate(`/phone/${incident.id}`)}} key={`${incident.id}-${index}`} className="border-b hover:bg-gray-50 hover:text-gray-700">
                                   <td className="px-6 py-3">{index+1}</td>
                                   <td className="px-6 py-3">{incident.worker.full_name}</td>
                                   <td className="px-6 py-3">{incident.timestamp.toString()}</td>

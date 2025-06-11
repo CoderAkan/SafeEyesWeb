@@ -17,6 +17,7 @@ import PhoneLogs from "../pages/Incidents/PhoneLogs";
 import FireDetailsPage from "../pages/Incidents/DetailedPages/FireDetailsPage";
 import PPEDetailsPage from "../pages/Incidents/DetailedPages/PPEDetailsPage";
 import PhoneDetailsPage from "../pages/Incidents/DetailedPages/PhoneDetailsPage";
+import CameraStream from "../pages/Incidents/DetailedPages/CameraDetailedPage";
 
 export const router = createBrowserRouter([
     {
@@ -87,6 +88,10 @@ export const router = createBrowserRouter([
             {
                 path: 'phone/:phoneId',
                 element: <PhoneDetailsPage />
+            },
+            {
+                path: 'camera/:id',
+                element: <CameraStream />
             },
         ]
     }
