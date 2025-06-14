@@ -9,7 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var WebSocketCameraGateway_1;
-var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WebSocketCameraGateway = void 0;
 const websockets_1 = require("@nestjs/websockets");
@@ -136,7 +135,7 @@ let WebSocketCameraGateway = WebSocketCameraGateway_1 = class WebSocketCameraGat
 exports.WebSocketCameraGateway = WebSocketCameraGateway;
 __decorate([
     (0, websockets_1.WebSocketServer)(),
-    __metadata("design:type", typeof (_a = typeof ws_1.Server !== "undefined" && ws_1.Server) === "function" ? _a : Object)
+    __metadata("design:type", ws_1.Server)
 ], WebSocketCameraGateway.prototype, "server", void 0);
 exports.WebSocketCameraGateway = WebSocketCameraGateway = WebSocketCameraGateway_1 = __decorate([
     (0, websockets_1.WebSocketGateway)({

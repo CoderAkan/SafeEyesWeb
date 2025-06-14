@@ -180,7 +180,7 @@ const AuthPage: FC = () => {
 
         <p onClick={() => {setIsLogin(!isLogin)}} className='flex justify-end text-blue-400'>{isLogin ? "I don't have an account" : "I already have an account"}</p>
 
-        <button className='mt-5 mb-12 rounded-md border-white border-1 px-2 py-2 hover:bg-white hover:text-slate-900'>Submit</button>
+        <button type="submit"className='mt-5 mb-12 rounded-md border-white border-1 px-2 py-2 hover:bg-white hover:text-slate-900'>Submit</button>
       </form>
       <DevTool control={control} />
     </div>

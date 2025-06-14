@@ -70,7 +70,7 @@ const Header: FC = () => {
                 )
             }
             {/* Actions */}
-            {/* {
+            {
                 isAuth ? (
                     <Link to={"/"} onClick={onLogOutHandler} className='flex gap-2 items-center text-white py-2 px-4 rounded-md disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:bg-gray-400 bg-rose-900 hover:bg-rose-800'>
                         <span>Выйти</span>    
@@ -81,7 +81,7 @@ const Header: FC = () => {
                         Войти
                     </Link>
                 )
-            } */}
+            }
         </header>
     )
 }

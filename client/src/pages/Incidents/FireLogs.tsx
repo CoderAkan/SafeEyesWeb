@@ -30,7 +30,7 @@ const FireLogs: FC = () => {
       fetchFireLogs();
     }, [])
 
-    const fireLogs = [
+    /*const fireLogs = [
         {number: 1, date: "01/01/2025", name: "Sergey W."},
         {number: 2, date: "03/01/2025", name: "Alan J."},
         {number: 3, date: "03/01/2025", name: "Mark R."},
@@ -39,7 +39,7 @@ const FireLogs: FC = () => {
         {number: 6, date: "10/01/2025", name: "Gulim N."},
         {number: 7, date: "11/01/2025", name: "Machambet Z."},
         {number: 8, date: "12/01/2025", name: "Maksat K."},   
-    ]
+    ]*/ // Temporary comment for build
 
     const navigate = useNavigate();
     

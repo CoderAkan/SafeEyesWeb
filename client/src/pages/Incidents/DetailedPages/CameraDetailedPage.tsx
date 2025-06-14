@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect,  } from 'react';
 import { Play, Square, Camera, AlertTriangle, Wifi, WifiOff } from 'lucide-react';
-
+//import React, {useRef} from 'react';      //temporary comment for dev build
 const CameraStream = () => {
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const [isStreaming, setIsStreaming] = useState(false);
@@ -10,7 +10,7 @@ const CameraStream = () => {
   const [dangerAlerts, setDangerAlerts] = useState<any[]>([]);
   const [selectedCamera, setSelectedCamera] = useState(0);
   const [connectionError, setConnectionError] = useState<string>('');
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+//const canvasRef = useRef<HTMLCanvasElement>(null); //temporary comment for dev build
 
   useEffect(() => {
     // Since your backend uses Socket.IO but we can't use the client library,
@@ -23,6 +23,10 @@ const CameraStream = () => {
       console.log('Connected to server');
       setIsConnected(true);
       setConnectionError('');
+
+      newSocket.send(JSON.stringify({ 
+        type: 'get-active-streams' 
+      }));
     };
 
     newSocket.onclose = () => {
@@ -41,6 +45,8 @@ const CameraStream = () => {
       try {
         const data = JSON.parse(event.data);
         
+        console.log('Received WebSocket message:', data); 
+  
         switch (data.type) {
           case 'video-frame':
             if (data.cameraId === selectedCamera) {
@@ -103,6 +109,12 @@ const CameraStream = () => {
   }, [selectedCamera]);
 
   const startStream = () => {
+    console.log('startStream called', {
+      socketExists: !!socket,
+      readyState: socket?.readyState,
+      selectedCamera
+    });
+
     if (socket && socket.readyState === WebSocket.OPEN) {
       socket.send(JSON.stringify({ 
         type: 'start-stream', 
@@ -180,7 +192,7 @@ const CameraStream = () => {
                     >
                       <Play size={16} />
                       <span>Start</span>
-                    </button>
+                    </button> 
                   ) : (
                     <button
                       onClick={stopStream}

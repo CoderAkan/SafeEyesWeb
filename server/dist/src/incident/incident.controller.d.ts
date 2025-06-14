@@ -16,16 +16,16 @@ export declare class IncidentController {
             responsible_person_id: number;
         };
         worker: {
-            id: number;
             email: string;
             password: string;
             full_name: string;
             emergency_contact: string;
             role: string;
             department: string;
-            refresh_token: string;
-            boss_id: string | null;
             access_permissions: string[];
+            refresh_token: string;
+            id: number;
+            boss_id: string | null;
             createdAt: Date;
             updatedAt: Date;
         } | null;
@@ -34,9 +34,9 @@ export declare class IncidentController {
         timestamp: Date;
         type: string;
         severity: number;
+        status: string;
         detected_by_camera_id: number;
         worker_id: number | null;
-        status: string;
     }>;
     findAll(req: any, filters: IncidentFilterDto): Promise<({
         detected_by_camera: {
@@ -49,16 +49,16 @@ export declare class IncidentController {
             responsible_person_id: number;
         };
         worker: {
-            id: number;
             email: string;
             password: string;
             full_name: string;
             emergency_contact: string;
             role: string;
             department: string;
-            refresh_token: string;
-            boss_id: string | null;
             access_permissions: string[];
+            refresh_token: string;
+            id: number;
+            boss_id: string | null;
             createdAt: Date;
             updatedAt: Date;
         } | null;
@@ -67,9 +67,9 @@ export declare class IncidentController {
         timestamp: Date;
         type: string;
         severity: number;
+        status: string;
         detected_by_camera_id: number;
         worker_id: number | null;
-        status: string;
     })[]>;
     findOne(id: string): Promise<({
         detected_by_camera: {
@@ -82,16 +82,16 @@ export declare class IncidentController {
             responsible_person_id: number;
         };
         worker: {
-            id: number;
             email: string;
             password: string;
             full_name: string;
             emergency_contact: string;
             role: string;
             department: string;
-            refresh_token: string;
-            boss_id: string | null;
             access_permissions: string[];
+            refresh_token: string;
+            id: number;
+            boss_id: string | null;
             createdAt: Date;
             updatedAt: Date;
         } | null;
@@ -100,26 +100,26 @@ export declare class IncidentController {
         timestamp: Date;
         type: string;
         severity: number;
+        status: string;
         detected_by_camera_id: number;
         worker_id: number | null;
-        status: string;
     }) | null>;
     update(id: string, updateIncidentDto: UpdateIncidentDto): Promise<{
         id: number;
         timestamp: Date;
         type: string;
         severity: number;
+        status: string;
         detected_by_camera_id: number;
         worker_id: number | null;
-        status: string;
     }>;
     remove(id: string): Promise<{
         id: number;
         timestamp: Date;
         type: string;
         severity: number;
+        status: string;
         detected_by_camera_id: number;
         worker_id: number | null;
-        status: string;
     }>;
 }
